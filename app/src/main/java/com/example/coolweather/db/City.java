@@ -1,12 +1,12 @@
 package com.example.coolweather.db;
 
-import org.litepal.crud.LitePalSupport;
+import org.litepal.crud.LitePalSupport;//Datasupport被litePalSupport取代
 
 public class City extends LitePalSupport {
     private int id;
     private String cityName;//城市名称
     private int cityCode;//城市代号
-
+    private int provinceId;//城市所属省
     public int getId() {
         return id;
     }
@@ -39,6 +39,6 @@ public class City extends LitePalSupport {
         this.provinceId = provinceId;
     }
 
-    private int provinceId;//城市所属省
+
 
 }
