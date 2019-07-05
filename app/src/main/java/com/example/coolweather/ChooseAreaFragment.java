@@ -134,8 +134,7 @@ public class ChooseAreaFragment extends Fragment {
             currentLevel = LEVEL_PROVINCE;
         } else {
            String address = "http://guolin.tech/api/china";
-           // String address = "https://vivo.com";
-            Log.d("MainActivity", "执行到访问省级数据 ");
+           // Log.d("MainActivity", "执行到访问省级数据 ");
             queryFromServer(address, "province");//否则从服务器上申请
         }//发现，碎片只加载了一次布局，但是可以复用多次，省，市，县都是用的同一个碎片；因为他们布局都是相同的，所以用碎片
         //这里碎片优于活动，直接操作控件就行，反正是同一布局
@@ -160,7 +159,7 @@ public class ChooseAreaFragment extends Fragment {
             currentLevel = LEVEL_CITY;
         } else {
             int provinceCode = selectedProvince.getProvinceCode();
-            String address = "http://guolin.tech/api/china" + provinceCode;
+            String address = "http://guolin.tech/api/china/" + provinceCode;
             queryFromServer(address, "city");
         }
     }
@@ -183,7 +182,7 @@ public class ChooseAreaFragment extends Fragment {
         } else {
             int provinceCode = selectedProvince.getProvinceCode();
             int cityCode = selectedCity.getCityCode();
-            String address = "http://guolin.tech/api/china" + provinceCode + "/" + cityCode;
+            String address = "http://guolin.tech/api/china/" + provinceCode + "/" + cityCode;
             queryFromServer(address, "country");
         }
     }
@@ -228,7 +227,6 @@ public class ChooseAreaFragment extends Fragment {
                         public void run() {
                             // closeProgressDialog();
                             if ("province".equals(type)) {
-                              //  Log.d("MainActivity", "换个网址可以");
                                 queryProvinces();
                             } else if ("city".equals(type)) {
                                 queryCities();
@@ -236,7 +234,8 @@ public class ChooseAreaFragment extends Fragment {
                                 queryCounties();
                             }
                         }
-                    });//切换回主线程,Callback()是个什么玩意,什么时候切换到子线程了
+                    });//切换回主线程,Callback()是个什么玩意,什么时候切换到子线程了？申请网络资源只能在子线程中
+                    //之前用excute（）时，能行是因为直接就是在子线程中写的；
                 }
             }
         });
